@@ -14,6 +14,7 @@ pub struct OfferData {
 #[derive(Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct DepthStreamData {
+    // pub last_update_id: Option<i32>,
     pub last_update_id: Option<i32>,
     pub bids: Vec<OfferData>,
     pub asks: Vec<OfferData>,

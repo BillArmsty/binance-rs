@@ -33,8 +33,16 @@ fn main() {
 
         let parsed: models::DepthStreamData = serde_json::from_str(&msg).expect("Can't parse");
 
-        for i in 0..parsed.asks.len() {
-            println!("{}. ask: {}, size: {}", 1, parsed.asks[i].price, parsed.asks[i].size);
+        //Print message to console
+
+
+
+        for i in 0..parsed.bids.len() {
+            println!("{}. bid: {}, size: {}", 1, parsed.bids[i].price, parsed.bids[i].size);
         }
+
+        // for i in 0..parsed.asks.len() {
+        //     println!("{}. ask: {}, size: {}", 1, parsed.asks[i].price, parsed.asks[i].size);
+        // }
     }
 }
