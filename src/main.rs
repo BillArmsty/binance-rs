@@ -31,18 +31,19 @@ fn main() {
 
         //Deserialize the message into a DepthStreamData struct
 
-        let parsed: models::DepthStreamData = serde_json::from_str(&msg).expect("Can't parse");
+        let parsed: models::DepthStreamDataWrapper = serde_json
+            ::from_str(&msg)
+            .expect("Error parsing message");
 
         //Print message to console
-
-
-
-        for i in 0..parsed.bids.len() {
-            println!("{}. bid: {}, size: {}", 1, parsed.bids[i].price, parsed.bids[i].size);
+        for i in 0..parsed.data.asks.len() {
+            println!(
+                "{}: {}. ask: {}, size: {}",
+                parsed.stream,
+                i,
+                parsed.data.asks[i].price,
+                parsed.data.asks[i].size
+            );
         }
-
-        // for i in 0..parsed.asks.len() {
-        //     println!("{}. ask: {}, size: {}", 1, parsed.asks[i].price, parsed.asks[i].size);
-        // }
     }
 }
