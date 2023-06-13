@@ -7,8 +7,8 @@ mod models;
 
 static BINANCE_WS_API: &str = "wss://stream.binance.com:9443";
 fn main() {
-    //Get top 5 bids and asks for ETHBTC every 100ms
-    let binance_url = format!("{}/stream?streams={}", BINANCE_WS_API, "ethbtc@depth@100ms");
+    let binance_url =
+        format!("{}/stream?streams=ethbtc@depth5@100ms/bnbeth@depth5@100ms", BINANCE_WS_API);
 
     let (mut socket, response) = connect(Url::parse(&binance_url).unwrap()).expect("Can't connect");
 
@@ -31,11 +31,7 @@ fn main() {
 
         //Deserialize the message into a DepthStreamData struct
 
-        let parsed: models::DepthStreamDataWrapper = serde_json
-            ::from_str(&msg)
-            .expect("Error parsing message");
-
-        //Print message to console
+        let parsed: models::DepthStreamDataWrapper = serde_json::from_str(&msg).expect("Can't parse the message");
         for i in 0..parsed.data.asks.len() {
             println!(
                 "{}: {}. ask: {}, size: {}",
